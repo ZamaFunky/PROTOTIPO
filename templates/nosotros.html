@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sistema de Control de Acceso a Edificios — Análisis del Proyecto</title>
+  <meta name="description" content="Análisis del proyecto para un Sistema de Control de Acceso a Edificios: requerimientos (IEEE 830), diseño, justificación, alcance y recomendaciones de seguridad y cumplimiento normativo." />
+  <meta name="keywords" content="control de acceso, sistema de acceso, biometría, RFID, seguridad, inventario, trazabilidad, IEEE 830" />
+  <link rel="canonical" href="https://www.tusitio.com/blog/analisis-sistema-control-acceso" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sistema de Control de Acceso a Edificios — Análisis del Proyecto" />
+  <meta property="og:description" content="Análisis del proyecto para implementar credenciales biométricas y digitales en el control de acceso de edificios: requerimientos, diseño y cumplimiento normativo." />
+  <meta property="og:image" content="/mnt/data/Imagen1.png" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.tusitio.com/blog/analisis-sistema-control-acceso" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sistema de Control de Acceso a Edificios — Análisis del Proyecto" />
+  <meta name="twitter:description" content="Proyecto para reemplazar llaves físicas por credenciales biométricas y digitales. Requerimientos, entorno y diseño (IEEE 830)." />
+  <meta name="twitter:image" content="/mnt/data/Imagen1.png" />
+  <style>
+
+    /* Botón para abrir la barra lateral */
+    .open-btn {
+      font-size: 18px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .open-btn:hover {
+      background-color: #333;
+    }
+
+    /* Barra lateral */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+    }
+
+    /* Enlaces dentro de la barra lateral */
+    .sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #f1f1f1;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    /* Botón de cerrar */
+    .sidebar .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 30px;
+      color: white;
+    }
+
+    body { font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0; line-height: 1.6; color:#222; background:#f7f7f7;}
+    .container { max-width:900px; margin:40px auto; background:#fff; padding:30px; border-radius:10px; box-shadow:0 6px 24px rgba(0,0,0,0.08);}
+    h1,h2,h3{ color:#0b3b5a; }
+    img.header-img{ width:100%; max-height:380px; object-fit:cover; border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,0.06);}
+    .meta { color:#666; font-size:0.95rem; margin-bottom:20px; }
+    .badge { display:inline-block; background:#e8f7ff; color:#0b3b5a; padding:6px 10px; border-radius:20px; font-weight:600; margin-right:8px; font-size:0.85rem;}
+    pre { background:#f4f7fb; padding:12px; border-radius:6px; overflow:auto; }
+    .cta { margin-top:24px; padding:16px; background:#f0f8ef; border-left:4px solid #1f9a4a; border-radius:6px; }
+    ul.check { list-style: square; margin-left:18px; }
+    .seo { background:#fff7e8; padding:12px; border-radius:6px; border:1px solid #ffe5b4; margin-top:16px; }
+    footer { margin-top:30px; color:#666; font-size:0.9rem; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Article",
+    "headline":"Sistema de Control de Acceso a Edificios — Análisis del Proyecto",
+    "description":"Análisis del proyecto para un Sistema de Control de Acceso a Edificios: requerimientos (IEEE 830), diseño, justificación, alcance y recomendaciones de seguridad y cumplimiento normativo.",
+    "image":["/mnt/data/Imagen1.png"],
+    "author": { "@type":"Person", "name":"Diego" },
+    "publisher": { "@type":"Organization", "name":"Tu Empresa", "logo": { "@type":"ImageObject", "url":"/path/to/logo.png" } },
+    "datePublished":"2025-09-26"
+  }
+  </script>
+</head>
+<body>
+
+
+
+    <!-- Botón para abrir la barra lateral -->
+  <button class="open-btn" onclick="openSidebar()">☰ Menú</button>
+
+   <!-- ====== MENÚ LATERAL ====== -->
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
+    <br>
+    <a href="{{ url_for('index') }}" onclick="closeSidebar()">Inicio</a>        
+    <a href="#contacto" onclick="closeSidebar()">Contacto</a>
+    <a href="{{ url_for('register') }}">Regístrate aquí</a>
+    <a href="{{ url_for('login') }}">Inicia sesión aquí</a>
+  </div>
+
+  <div class="container">    
+
+    <h1>Sistema de Control de Acceso a Edificios — Análisis del Proyecto</h1>
+    <p class="meta"><span class="badge">Proyecto</span>Publicado: 2025 &nbsp; · &nbsp; Autor: Diego &nbsp; · &nbsp; Categoría: Seguridad & Control de Acceso</p>
+
+    <!-- Header image (usa la imagen que subiste) -->
+    <img src="/mnt/data/Imagen1.png" alt="Formulario de acceso - Acceso permitido / denegado" class="header-img" />
+
+    <h2>Resumen ejecutivo</h2>
+    <p>Este proyecto propone un <strong>Sistema de Control de Acceso a Edificios</strong> que sustituya el uso de llaves físicas por credenciales digitales y biométricas (huella, reconocimiento facial) y/o identificadores RFID. El objetivo es mejorar la seguridad, la trazabilidad del ingreso y reducir los riesgos de duplicación y pérdida de llaves.</p>
+
+    <h2>1. Contexto del problema</h2>
+    <p>En muchos entornos corporativos aún se usan llaves físicas para autorizar accesos. Esto genera problemas frecuentes:</p>
+    <ul class="check">
+      <li>Pérdida frecuente de llaves y pérdida de control.</li>
+      <li>Duplicación no autorizada por terceros.</li>
+      <li>Falta de trazabilidad: no hay registro fiable de quién entra y cuándo.</li>
+    </ul>
+
+    <h2>2. Objetivo del proyecto</h2>
+    <p>Desarrollar e implementar un sistema fiable y seguro que use credenciales biométricas y/o digitales (tarjetas/RFID, ID, apps móviles) para autorizar el acceso a un edificio, registrar eventos y facilitar la administración centralizada.</p>
+
+    <h2>3. Análisis según IEEE 830</h2>
+
+    <h3>3.1 Resumen</h3>
+    <p>Se define un sistema que reemplaza llaves físicas por credenciales digitales y biométricas, con módulos de autenticación, registro (log), administración de usuarios y una interfaz web para administración.</p>
+
+    <h3>3.2 Introducción</h3>
+    <p>El presente documento detalla los requerimientos funcionales y no funcionales, el alcance del sistema y el entorno operativo. Está orientado a responsables de seguridad, administradores TI y desarrolladores que implementarán la solución.</p>
+
+    <h3>3.3 Antecedentes del cliente</h3>
+    <p>Empresa con múltiples empleados y visitantes diarios, necesita: control de acceso robusto, registro de eventos y opciones para revocar credenciales rápidamente.</p>
+
+    <h3>3.4 Entorno de operación</h3>
+    <ul>
+      <li><strong>Hardware:</strong> sensores biométricos (lector de huella, cámara para reconocimiento facial), lectores RFID, puertas/cerraduras electrónicas, controladores de puerta (PLC o controlador embebido), servidores locales o en la nube.</li>
+      <li><strong>Software:</strong> aplicación web responsiva para administrador y usuarios, API de autenticación, base de datos segura (ej. PostgreSQL), integrations con Active Directory si aplica.</li>
+    </ul>
+
+    <h3>3.5 Justificación social</h3>
+    <p>Mejora de la seguridad laboral, reducción de intrusiones, mayor trazabilidad y adopción de tecnologías eficientes que apoyan ODS 9 y ODS 11.</p>
+
+    <h3>3.6 Requerimientos normativos y ODS</h3>
+    <ul>
+      <li>Cumplimiento con normativas de protección de datos (GDPR o leyes locales de datos personales).</li>
+      <li>Alineación con ODS 9 (Industria, innovación) y ODS 11 (Ciudades sostenibles).</li>
+    </ul>
+
+    <h2>4. Arquitectura propuesta</h2>
+    <p>Arquitectura modular compuesta por los siguientes componentes:</p>
+    <ul>
+      <li><strong>Frontend:</strong> Interfaz web para administradores y panel de acceso para guardias/usuarios. Responsive y accesible.</li>
+      <li><strong>Backend:</strong> API REST/GraphQL encargada de autenticación, autorización (roles) y registro de eventos.</li>
+      <li><strong>Base de datos:</strong> almacenamiento seguro de usuarios, credenciales, logs de acceso y configuración de dispositivos.</li>
+      <li><strong>Integración hardware:</strong> controladores de puerta con conexión segura (TLS/VPN) y drivers para lectores biométricos/RFID.</li>
+    </ul>
+
+    <h2>5. Alcance</h2>
+    <ul>
+      <li>Control de entrada/salida mediante credenciales.</li>
+      <li>Registro y almacenamiento de eventos (fecha/hora, usuario, método de autenticación, puerta).</li>
+      <li>Gestión de usuarios y credenciales (alta, baja, bloqueo, renovación).</li>
+      <li>Alertas en caso de intentos fallidos, manipulación o hardware desconectado.</li>
+    </ul>
+
+    <h2>6. Técnicas de recolección de datos</h2>
+    <p>Para definir requerimientos se propone:</p>
+    <ul>
+      <li>Entrevistas con personal de seguridad y administración.</li>
+      <li>Observación del flujo de acceso en horas pico.</li>
+      <li>Encuestas a empleados (privacidad, preferencia de métodos de acceso).</li>
+    </ul>
+
+    <h2>7. Requerimientos funcionales (ejemplos)</h2>
+    <ol>
+      <li><strong>RF-01 Validación de identidad:</strong> El sistema debe autenticar usuarios mediante huella, rostro, ID o RFID.</li>
+      <li><strong>RF-02 Registro de accesos:</strong> Registrar fecha, hora, método de autenticación, resultado (permitido/denegado) y puerta.</li>
+      <li><strong>RF-03 Gestión de credenciales:</strong> Alta, baja, bloqueo y renovación de credenciales por administrador.</li>
+      <li><strong>RF-04 Panel de auditoría:</strong> Consultas y exportación de logs (CSV/PDF) por rango de fechas y filtros.</li>
+    </ol>
+
+    <h2>8. Requerimientos no funcionales</h2>
+    <ul>
+      <li><strong>RNF-01 Seguridad de datos:</strong> Encriptación de credenciales y comunicación TLS entre componentes.</li>
+      <li><strong>RNF-02 Alta disponibilidad:</strong> SLA objetivo 99.5% para servicios de autenticación.</li>
+      <li><strong>RNF-03 Rendimiento:</strong> Autenticación en < 500ms en condiciones normales.</li>
+      <li><strong>RNF-04 Privacidad:</strong> Almacenamiento seguro de plantillas biométricas (no imágenes sin consentimiento) y cumplimiento normativo.</li>
+      <li><strong>RNF-05 Usabilidad:</strong> Interfaz clara para administradores sin necesidad de conocimientos técnicos avanzados.</li>
+    </ul>
+
+    <h2>9. Lista de cotejo (checklist)</h2>
+    <ul class="check">
+      <li>¿Se identificaron todos los actores (usuario, administrador, guardia, visitante)?</li>
+      <li>¿Se definieron claramente los requerimientos funcionales y no funcionales?</li>
+      <li>¿Se consideraron aspectos legales y de privacidad?</li>
+      <li>¿Existe plan de respaldo y recuperación ante fallo?</li>
+      <li>¿Se planeó la integración física con cerraduras y sensores?</li>
+    </ul>
+
+    <h2>10. Diseño (ALTO NIVEL)</h2>
+    <p>El diseño se plantea en capas:</p>
+    <ol>
+      <li><strong>Presentación:</strong> Web app y panel móvil para administración.</li>
+      <li><strong>Servicios:</strong> API de autenticación, servicio de logs, servicio de notificaciones (email/SMS).</li>
+      <li><strong>Persistencia:</strong> Base de datos relacional (PostgreSQL) + almacenamiento de blobs cifrados si aplica.</li>
+      <li><strong>Integración de hardware:</strong> Gateways que conversan con el backend por API segura.</li>
+    </ol>
+
+    <div class="cta">
+      <h3>Flujos críticos (ejemplo)</h3>
+      <p><strong>Ingreso con biometría:</strong> Lector captura huella → Gateway procesa plantilla → API backend valida → Si OK, orden de apertura a cerradura y registro del evento.</p>
+      <p><strong>Ingreso con tarjeta RFID:</strong> Lector envía ID → Gateway consulta API → Si autorizado, abre puerta y registra evento.</p>
+    </div>
+
+    <h2>11. Riesgos y mitigaciones</h2>
+    <ul>
+      <li><strong>Riesgo:</strong> Robo o suplantación de credenciales. <strong>Mitigación:</strong> Multifactores (biometría + tarjeta) y monitoreo de intentos fallidos.</li>
+      <li><strong>Riesgo:</strong> Falla de hardware. <strong>Mitigación:</strong> Redundancia y alertas de salud del dispositivo.</li>
+      <li><strong>Riesgo:</strong> Incumplimiento normativo. <strong>Mitigación:</strong> Asesoría legal, anonimización y consentimiento informado.</li>
+    </ul>
+
+    <h2>12. Plan de despliegue y mantenimiento</h2>
+    <p>Fases sugeridas:</p>
+    <ol>
+      <li>Prueba de concepto en un acceso secundario.</li>
+      <li>Despliegue piloto en una planta con monitorización 24/7.</li>
+      <li>Evaluación y ajustes según métricas (falsos positivos, tiempos, feedback).</li>
+      <li>Despliegue completo y transferencia de conocimiento al equipo de Seguridad TI.</li>
+    </ol>
+
+    <h2>13. Recomendaciones finales</h2>
+    <ul>
+      <li>Empezar por un piloto pequeño para validar integración con hardware.</li>
+      <li>Registrar y auditar todos los accesos desde día 1.</li>
+      <li>Priorizar la protección de plantillas biométricas y cumplimiento de privacidad.</li>
+      <li>Implementar un plan de recuperación ante incidentes y backups cifrados.</li>
+    </ul>
+
+    <div class="seo">
+      <h3>Checklist SEO (rápido) para publicar este artículo</h3>
+      <ul>
+        <li>Meta title y meta description presentes y con palabra clave: <em>control de acceso</em>.</li>
+        <li>URL amigable: <code>/blog/analisis-sistema-control-acceso</code>.</li>
+        <li>Etiqueta H1 con la palabra clave y subtítulos H2/H3 para estructura.</li>
+        <li>Imagen con atributo <code>alt="Formulario de acceso - Acceso permitido/denegado"</code> (usa la imagen subida).</li>
+        <li>Sitemap.xml actualizado y registro en Google Search Console.</li>
+      </ul>
+    </div>
+
+    <h2>Descargas y recursos</h2>
+    <p>Puedes añadir aquí enlaces para: <em>Documento de especificación (Word/PDF)</em>, <em>Prototipo UI</em>, <em>Manual de hardware</em> y <em>API docs</em>.</p>
+
+    <footer>
+      <footer id="contacto">
+      <p>© 2025 SmartAccess. Todos los derechos reservados.</p>
+      <p>redes: Facebook Proteccion Inteligente | Tel: +52 427 183 2691</p>
+    </footer>
+    </footer>
+  </div>
+
+  <script>
+    function openSidebar() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeSidebar() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+    }
+  </script>
+</body>
+</html>

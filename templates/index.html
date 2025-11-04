@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartAccess - Control Inteligente de Edificios</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f7f9fb;
+      color: #333;
+      transition: margin-left 0.3s;
+    }
+
+    /* ====== BARRA SUPERIOR ====== */
+    header {
+      background-color: #1e293b;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+
+    .open-btn {
+      font-size: 22px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .open-btn:hover {
+      background-color: #333;
+    }
+
+    /* ====== BARRA LATERAL ====== */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 999;
+    }
+
+    .sidebar a {
+      padding: 10px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #f1f1f1;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    .sidebar .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 30px;
+      color: white;
+    }
+
+    /* ====== CONTENIDO ====== */
+    #main {
+      transition: margin-left 0.3s;
+      padding-top: 80px;
+    }
+
+    /* ====== HERO ====== */
+    .hero {
+      background: linear-gradient(to right, #0f172a, #1e40af);
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #38bdf8;
+      color: white;
+      padding: 12px 25px;
+      margin-top: 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #0ea5e9;
+    }
+
+    /* ====== PRODUCTOS ====== */
+    .productos {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .productos h3 {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .producto {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: transform 0.3s;
+    }
+
+    .producto:hover {
+      transform: translateY(-5px);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .producto h4 {
+      margin: 15px 0 10px;
+      font-size: 20px;
+      color: #1e3a8a;
+    }
+
+    .producto p {
+      font-size: 15px;
+      line-height: 1.4;
+      color: #555;
+    }
+
+    /* ====== INFO ====== */
+    .info {
+      background-color: #e2e8f0;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .info h3 {
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .info p {
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ====== FOOTER ====== */
+    footer {
+      background-color: #1e293b;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== MENÚ LATERAL ====== -->
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
+    <br>
+    <a href="{{ url_for('index') }}" onclick="closeSidebar()">Inicio</a>
+    <a href="#productos" onclick="closeSidebar()">Productos</a>
+    <a href="{{ url_for('nosotros') }}" onclick="closeSidebar()">Nosotros</a>
+    <a href="#contacto" onclick="closeSidebar()">Contacto</a>
+    <a href="{{ url_for('register') }}">Regístrate aquí</a>
+    <a href="{{ url_for('login') }}">Inicia sesión aquí</a>
+  </div>
+
+  <!-- ====== ENCABEZADO ====== -->
+  <header>
+    <button class="open-btn" onclick="openSidebar()">☰</button>
+    <h1>SmartAccess</h1>
+  </header>
+
+  <!-- ====== CONTENIDO PRINCIPAL ====== -->
+  <div id="main">
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <h2>Control de Acceso Inteligente para Edificios Modernos</h2>
+      <p>Ofrecemos soluciones avanzadas para la seguridad y automatización de accesos: cerraduras electrónicas, lectores biométricos, y sistemas de tarjetas inteligentes.</p>
+      <a href="#productos" class="btn">Ver Productos</a>
+    </section>
+
+    <!-- PRODUCTOS -->
+    <section class="productos" id="productos">
+      <h3>Nuestros Productos</h3>
+      <div class="grid">
+        <div class="producto">
+          <img src="../static/images/cerraduraelectronica.jpg" alt="Cerradura Electrónica">
+          <h4>Cerradura Electrónica WiFi</h4>
+          <p>Controla el acceso desde tu smartphone y administra permisos en tiempo real.</p>
+        </div>
+        <div class="producto">
+          <img src="../static/images/lectorbio.png" alt="Lector Biométrico">
+          <h4>Lector Biométrico</h4>
+          <p>Reconocimiento facial y huella digital para máxima seguridad y rapidez.</p>
+        </div>
+        <div class="producto">
+          <img src="../static/images/rfid.jpg" alt="Sistema RFID">
+          <h4>Sistema RFID</h4>
+          <p>Ideal para edificios corporativos con alto flujo de personal y visitantes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFORMACIÓN -->
+    <section class="info" id="info">
+      <h3>¿Quiénes Somos?</h3>
+      <p>En <strong>SmartAccess</strong> somos líderes en soluciones tecnológicas para el control de acceso inteligente. Nuestro compromiso es ofrecer seguridad, comodidad y eficiencia a empresas, residencias y edificios inteligentes.</p>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer id="contacto">
+      <p>© 2025 SmartAccess. Todos los derechos reservados.</p>
+      <p>redes: Facebook Proteccion Inteligente | Tel: +52 427 183 2691</p>
+    </footer>
+
+  </div>
+
+  <!-- ====== SCRIPT ====== -->
+  <script>
+    function openSidebar() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeSidebar() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+    }
+  </script>
+
+</body>
+</html>

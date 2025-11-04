@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <title>Panel Principal</title>
+    <style>    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }  
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      transition: margin-left 0.3s;
+      background: #f4f4f4;
+    }
+
+        /* ====== HERO ====== */
+    .hero {
+      background: linear-gradient(to right, #0f172a, #1e40af);
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+     header {
+      background-color: #1e293b;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+
+    /* Botón para abrir la barra lateral */
+    .open-btn {
+      font-size: 22px;
+      cursor: pointer;
+      background-color: #111;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .open-btn:hover {
+      background-color: #333;
+    }
+
+    /* Barra lateral */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 999;
+    }
+
+    /* Enlaces dentro de la barra lateral */
+    .sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #f1f1f1;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    /* Botón de cerrar */
+    .sidebar .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 30px;
+      color: white;
+    }
+
+    /* Contenido principal */
+    #main {
+      transition: margin-left 0.3s;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+   <!-- ====== MENÚ LATERAL ====== -->
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
+    <br>
+    <a href="{{ url_for('index') }}" onclick="closeSidebar()">Inicio</a>
+    <a href="#productos" onclick="closeSidebar()">Productos</a>
+    <a href="{{ url_for('nosotros') }}" onclick="closeSidebar()">Nosotros</a>
+    <a href="#contacto" onclick="closeSidebar()">Contacto</a>
+    <a href="{{ url_for('register') }}">Regístrate aquí</a>
+    <a href="{{ url_for('login') }}">Inicia sesión aquí</a>
+  </div>
+
+  <!-- ====== ENCABEZADO ====== -->
+  <header>
+    <button class="open-btn" onclick="openSidebar()">☰</button>
+    <h1>SmartAccess</h1>
+  </header>
+
+    <br><br>    
+    <div id="main" class="hero"> 
+      <br><br>
+    <h2 class="">Bienvenido, {{ user.username }}</h2>
+    <hr class="border border-danger border-2 opacity-50">    
+    <p>Rol: {{ user.role }}</p>    
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+    
+  </div>
+
+  <script>
+    function openSidebar() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeSidebar() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+    }
+  </script>
+</body>
+</html>
